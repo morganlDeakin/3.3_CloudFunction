@@ -1,0 +1,39 @@
+int led = D6;
+
+void setup() 
+{
+  Serial.begin(9600);
+	pinMode(led, OUTPUT);
+	Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", handler);
+}
+
+void loop() 
+{
+}
+
+void handler(const char *eventName, const char *data) 
+{
+      Serial.println(data);
+      
+      if(strcmp(data,"wave")==0)
+      {
+          for(int i = 0; i < 3; i++)
+          {
+              digitalWrite(led, HIGH);
+              delay(1000);
+              digitalWrite(led, LOW);
+              delay(500);
+          }
+      }
+      
+      if(strcmp(data,"pat")==0)
+      {
+          for(int i = 0; i < 8; i++)
+          {
+              digitalWrite(led, HIGH);
+              delay(200);
+              digitalWrite(led, LOW);
+              delay(200);
+          }
+      }
+}
